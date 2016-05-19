@@ -9,4 +9,4 @@ insert_final_newline = true
 max_line_length = 80
 
 [{Makefile,*.go}]
-indent_style = space
+indent_style = tab
