@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/10sr/git-exec/lib"
+	"./lib"
 )
 
 func main(){
