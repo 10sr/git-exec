@@ -1,10 +1,13 @@
 package main
 
 import (
-	"fmt"
+	"flag"
 	"github.com/10sr/git-exec/lib"
 )
 
+var num *int = flag.Int("n", 0, "Number")
+
 func main(){
-	fmt.Printf(lib.Hw())
+	flag.Parse()
+	lib.Main(num)
 }
