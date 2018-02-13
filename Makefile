@@ -1,4 +1,5 @@
-.PHONY: install
+.PHONY: run
 
-install:
-	go install
+run:
+	sed -e 's:github.com/10sr/git-exec/lib:./lib:' git-exec.go >git-exec.local.go
+	go run git-exec.local.go
