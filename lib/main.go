@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os/exec"
+	"strings"
 )
 
 func Main(num *int){
@@ -12,5 +13,5 @@ func Main(num *int){
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Printf("lib.Main: %s\n", out);
+	fmt.Printf("lib.Main: %s\n", strings.TrimSpace(string(out)));
 }
