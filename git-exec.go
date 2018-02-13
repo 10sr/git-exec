@@ -2,7 +2,7 @@ package main
 
 import (
 	"flag"
-	"github.com/10sr/git-exec/lib"
+	"./lib"
 )
 
 var num *int = flag.Int("n", 0, "Number")
