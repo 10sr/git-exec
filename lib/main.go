@@ -1,7 +1,16 @@
 package lib
 
-import "fmt"
+import (
+	"fmt"
+	"log"
+	"os/exec"
+)
 
 func Main(num *int){
-	fmt.Printf("lib.Main: %d\n", *num);
+	cmd := exec.Command("git", "rev-parse", "HEAD")
+	out, err := cmd.Output()
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Printf("lib.Main: %s\n", out);
 }
