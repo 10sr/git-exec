@@ -25,6 +25,11 @@ func gitHeadRevision() string {
 }
 
 
-// func git(arg ...string) string {
-// 	cmd :=
+// func gitGetOutput(arg ...string) string {
+// 	cmd := exec.Command("git", arg...)
+// 	out, err := cmd.Output()
+// 	if err != nil {
+// 		log.Fatal(err)
+// 	}
+// 	return string(out)
 // }
