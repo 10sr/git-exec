@@ -17,7 +17,7 @@ func main(){
 	flag.BoolVar(&withStagedFlag, "s", false, "Use staged state")
 	flag.Parse()
 	rest := flag.Args()
-	command := rest[0]
+	cmd := rest[0]
 	args := rest[1:]
-	lib.Main(revisionFlag, withStagedFlag, command, args)
+	lib.Main(revisionFlag, withStagedFlag, cmd, args)
 }
