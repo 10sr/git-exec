@@ -11,8 +11,8 @@ import (
 
 func Main(revision string, withStaged bool, cmd string, args []string){
 	fmt.Printf("lib.Main: revision: %s\n", revision)
-	fmt.Printf("lib.Main: revision: %v\n", withStaged)
-	fmt.Printf("lib.Main: revision: %v\n", args)
+	fmt.Printf("lib.Main: withStaged: %v\n", withStaged)
+	fmt.Printf("lib.Main: args: %v\n", args)
 
 	head_revision := gitHeadRevision()
 	fmt.Printf("lib.Main: %s\n", head_revision)
@@ -20,7 +20,7 @@ func Main(revision string, withStaged bool, cmd string, args []string){
 	git_toplevel := gitToplevel()
 	fmt.Printf("lib.Main: %s\n", git_toplevel)
 
-	// execCommand(git_toplevel, cmd, args)
+	execCommand(git_toplevel, cmd, args)
 	cmd_tgt := exec.Command(cmd, args...)
 	cmd_tgt.Dir = git_toplevel
 	out_tgt, err_tgt := cmd_tgt.Output()
@@ -32,6 +32,8 @@ func Main(revision string, withStaged bool, cmd string, args []string){
 
 
 func execCommand(pwd string, cmd string, args []string){
+	fmt.Printf("lib.Main: cmd: %v\n", cmd)
+	fmt.Printf("lib.Main: args: %v\n", args)
 	cmdPath, err := exec.LookPath(cmd)
 	if err != nil {
 		log.Fatal(err)
