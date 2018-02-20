@@ -24,7 +24,6 @@ func gitHeadRevision() string {
 	return strings.TrimSpace(string(out))
 }
 
-
 // func gitGetOutput(arg ...string) string {
 // 	cmd := exec.Command("git", arg...)
 // 	out, err := cmd.Output()

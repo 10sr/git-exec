@@ -5,9 +5,19 @@ import (
 	"github.com/10sr/git-exec/lib"
 )
 
-var num *int = flag.Int("n", 0, "Number")
 
 func main(){
+	var (
+		revisionFlag string
+		withStagedFlag bool
+	)
+	flag.StringVar(&revisionFlag, "revision", "", "Revision id")
+	flag.StringVar(&revisionFlag, "r", "", "Revision id")
+	flag.BoolVar(&withStagedFlag, "with-staged", false, "Use staged state")
+	flag.BoolVar(&withStagedFlag, "s", false, "Use staged state")
 	flag.Parse()
-	lib.Main(num)
+	rest := flag.Args()
+	command := rest[0]
+	args := rest[1:]
+	lib.Main(revisionFlag, withStagedFlag, command, args)
 }

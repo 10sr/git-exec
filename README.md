@@ -16,7 +16,7 @@ Usage
 
 Run command your git repository root:
 
-    git exec [--dirty|-d] <command> [<args>...]
+    git exec <command> [<args>...]
 
 Run command with specified git revision:
 
