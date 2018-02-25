@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os/exec"
-	"strings"
+	// "strings"
 	"os"
 	"syscall"
 )
@@ -26,13 +26,13 @@ func GitExec(revision string, withStaged bool, cmd string, args []string){
 	}
 
 	execCommand(gitToplevel, cmd, args)
-	cmdTgt := exec.Command(cmd, args...)
-	cmdTgt.Dir = gitToplevel
-	outTgt, errTgt := cmdTgt.Output()
-	if errTgt != nil {
-		log.Fatal(errTgt)
-	}
-	fmt.Printf("lib.Main: %s\n", strings.TrimSpace(string(outTgt)))
+	// cmdTgt := exec.Command(cmd, args...)
+	// cmdTgt.Dir = gitToplevel
+	// outTgt, errTgt := cmdTgt.Output()
+	// if errTgt != nil {
+	// 	log.Fatal(errTgt)
+	// }
+	// fmt.Printf("lib.Main: %s\n", strings.TrimSpace(string(outTgt)))
 }
 
 
