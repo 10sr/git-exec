@@ -1,4 +1,4 @@
 .PHONY: run
 
 run:
-	go run *.go echo hoehoe  # -c "pwd && sleep 10 &&  echo a"
+	go run *.go sh -c "pwd && sleep 10 &&  echo a"

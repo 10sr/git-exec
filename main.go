@@ -14,20 +14,20 @@ func GitExec(revision string, withStaged bool, cmd string, args []string){
 	fmt.Printf("lib.Main: withStaged: %v\n", withStaged)
 	fmt.Printf("lib.Main: args: %v\n", args)
 
-	head_revision := gitHeadRevision()
-	fmt.Printf("lib.Main: %s\n", head_revision)
+	headRevision := gitHeadRevision()
+	fmt.Printf("lib.Main: %s\n", headRevision)
 
-	git_toplevel := gitToplevel()
-	fmt.Printf("lib.Main: %s\n", git_toplevel)
+	gitToplevel := gitToplevel()
+	fmt.Printf("lib.Main: %s\n", gitToplevel)
 
-	execCommand(git_toplevel, cmd, args)
-	cmd_tgt := exec.Command(cmd, args...)
-	cmd_tgt.Dir = git_toplevel
-	out_tgt, err_tgt := cmd_tgt.Output()
-	if err_tgt != nil {
-		log.Fatal(err_tgt)
+	execCommand(gitToplevel, cmd, args)
+	cmdTgt := exec.Command(cmd, args...)
+	cmdTgt.Dir = gitToplevel
+	outTgt, errTgt := cmdTgt.Output()
+	if errTgt != nil {
+		log.Fatal(errTgt)
 	}
-	fmt.Printf("lib.Main: %s\n", strings.TrimSpace(string(out_tgt)))
+	fmt.Printf("lib.Main: %s\n", strings.TrimSpace(string(outTgt)))
 }
 
 
@@ -39,9 +39,11 @@ func execCommand(pwd string, cmd string, args []string){
 		log.Fatal(err)
 	}
 
+	args = append([]string{cmd}, args...)
+
 	env := os.Environ()
-	exec_err := syscall.Exec(cmdPath, args, env)
-	if exec_err != nil {
-		log.Fatal(exec_err)
+	execErr := syscall.Exec(cmdPath, args, env)
+	if execErr != nil {
+		log.Fatal(execErr)
 	}
 }
