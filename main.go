@@ -20,31 +20,25 @@ func GitExec(revision string, withStaged bool, cmd string, args []string){
 	gitToplevel := gitToplevel()
 	fmt.Printf("lib.Main: %s\n", gitToplevel)
 
-	err := os.Chdir(gitToplevel)
-	if err != nil {
-		log.Fatal(err)
-	}
-
 	execCommand(gitToplevel, cmd, args)
-	// cmdTgt := exec.Command(cmd, args...)
-	// cmdTgt.Dir = gitToplevel
-	// outTgt, errTgt := cmdTgt.Output()
-	// if errTgt != nil {
-	// 	log.Fatal(errTgt)
-	// }
-	// fmt.Printf("lib.Main: %s\n", strings.TrimSpace(string(outTgt)))
 }
 
 
 func execCommand(pwd string, cmd string, args []string){
 	fmt.Printf("lib.Main: cmd: %v\n", cmd)
 	fmt.Printf("lib.Main: args: %v\n", args)
+
 	cmdPath, pathErr := exec.LookPath(cmd)
 	if pathErr != nil {
 		log.Fatal(pathErr)
 	}
 
 	args = append([]string{cmd}, args...)
+
+	chdirErr := os.Chdir(pwd)
+	if chdirErr != nil {
+		log.Fatal(chdirErr)
+	}
 
 	env := os.Environ()
 	execErr := syscall.Exec(cmdPath, args, env)
