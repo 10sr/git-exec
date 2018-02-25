@@ -20,6 +20,11 @@ func GitExec(revision string, withStaged bool, cmd string, args []string){
 	gitToplevel := gitToplevel()
 	fmt.Printf("lib.Main: %s\n", gitToplevel)
 
+	err := os.Chdir(gitToplevel)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	execCommand(gitToplevel, cmd, args)
 	cmdTgt := exec.Command(cmd, args...)
 	cmdTgt.Dir = gitToplevel
@@ -34,9 +39,9 @@ func GitExec(revision string, withStaged bool, cmd string, args []string){
 func execCommand(pwd string, cmd string, args []string){
 	fmt.Printf("lib.Main: cmd: %v\n", cmd)
 	fmt.Printf("lib.Main: args: %v\n", args)
-	cmdPath, err := exec.LookPath(cmd)
-	if err != nil {
-		log.Fatal(err)
+	cmdPath, pathErr := exec.LookPath(cmd)
+	if pathErr != nil {
+		log.Fatal(pathErr)
 	}
 
 	args = append([]string{cmd}, args...)
