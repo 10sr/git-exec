@@ -1,48 +1,22 @@
 package main
 
 import (
-	"fmt"
-	"log"
-	"os/exec"
-	// "strings"
-	"os"
-	"syscall"
+	"flag"
 )
 
-func GitExec(revision string, withStaged bool, cmd string, args []string){
-	fmt.Printf("lib.Main: revision: %s\n", revision)
-	fmt.Printf("lib.Main: withStaged: %v\n", withStaged)
-	fmt.Printf("lib.Main: args: %v\n", args)
 
-	headRevision := gitHeadRevision()
-	fmt.Printf("lib.Main: %s\n", headRevision)
-
-	gitToplevel := gitToplevel()
-	fmt.Printf("lib.Main: %s\n", gitToplevel)
-
-	execCommand(gitToplevel, cmd, args)
-}
-
-
-func execCommand(pwd string, cmd string, args []string){
-	fmt.Printf("lib.Main: cmd: %v\n", cmd)
-	fmt.Printf("lib.Main: args: %v\n", args)
-
-	cmdPath, pathErr := exec.LookPath(cmd)
-	if pathErr != nil {
-		log.Fatal(pathErr)
-	}
-
-	args = append([]string{cmd}, args...)
-
-	chdirErr := os.Chdir(pwd)
-	if chdirErr != nil {
-		log.Fatal(chdirErr)
-	}
-
-	env := os.Environ()
-	execErr := syscall.Exec(cmdPath, args, env)
-	if execErr != nil {
-		log.Fatal(execErr)
-	}
+func main(){
+	var (
+		revisionFlag string
+		withStagedFlag bool
+	)
+	flag.StringVar(&revisionFlag, "revision", "", "Revision id")
+	flag.StringVar(&revisionFlag, "r", "", "Revision id")
+	flag.BoolVar(&withStagedFlag, "with-staged", false, "Use staged state")
+	flag.BoolVar(&withStagedFlag, "s", false, "Use staged state")
+	flag.Parse()
+	rest := flag.Args()
+	cmd := rest[0]
+	args := rest[1:]
+	GitExec(revisionFlag, withStagedFlag, cmd, args)
 }
