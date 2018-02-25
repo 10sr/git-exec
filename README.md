@@ -13,12 +13,13 @@ Install
 Usage
 -----
 
-
-Run command your git repository root:
+Without any argument, just run given comand at the root directory of your git
+repository (fail if you are not inside of any git repository):
 
     git exec <command> [<args>...]
 
-Run command with specified git revision:
+with `-r <rev>` option, try to checkout that revision and run command at the
+repository root:
 
     git exec --revision|-r <rev> <command> [<args> ...]
 
