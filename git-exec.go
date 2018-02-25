@@ -14,35 +14,47 @@ func GitExec(revision string, withStaged bool, cmd string, args []string){
 	fmt.Printf("lib.Main: withStaged: %v\n", withStaged)
 	fmt.Printf("lib.Main: args: %v\n", args)
 
-	headRevision := gitHeadRevision()
+	var err error
+
+	headRevision, err := gitHeadRevision()
+	if err != nil {
+		log.Fatal(err)
+	}
 	fmt.Printf("lib.Main: %s\n", headRevision)
 
-	gitToplevel := gitToplevel()
+	gitToplevel, err := gitToplevel()
+	if err != nil {
+		log.Fatal(err)
+	}
 	fmt.Printf("lib.Main: %s\n", gitToplevel)
 
-	execCommand(gitToplevel, cmd, args)
+	err = execCommand(gitToplevel, cmd, args)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 
-func execCommand(pwd string, cmd string, args []string){
+func execCommand(pwd string, cmd string, args []string) error {
 	fmt.Printf("lib.Main: cmd: %v\n", cmd)
 	fmt.Printf("lib.Main: args: %v\n", args)
 
-	cmdPath, pathErr := exec.LookPath(cmd)
-	if pathErr != nil {
-		log.Fatal(pathErr)
+	var err error
+
+	cmdPath, err := exec.LookPath(cmd)
+	if err != nil {
+		return err
 	}
 
 	args = append([]string{cmd}, args...)
 
-	chdirErr := os.Chdir(pwd)
-	if chdirErr != nil {
-		log.Fatal(chdirErr)
+	err = os.Chdir(pwd)
+	if err != nil {
+		return err
 	}
 
 	env := os.Environ()
-	execErr := syscall.Exec(cmdPath, args, env)
-	if execErr != nil {
-		log.Fatal(execErr)
-	}
+	err = syscall.Exec(cmdPath, args, env)
+	// Unreachable!
+	return err
 }

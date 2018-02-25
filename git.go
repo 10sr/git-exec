@@ -1,34 +1,24 @@
 package main
 
 import (
-	"log"
 	"os/exec"
 	"strings"
 )
 
-func gitToplevel() string {
+func gitToplevel() (string, error) {
 	cmd := exec.Command("git", "rev-parse", "--show-toplevel")
 	out, err := cmd.Output()
 	if err != nil {
-		log.Fatal(err)
+		return "", err
 	}
-	return strings.TrimSpace(string(out))
+	return strings.TrimSpace(string(out)), nil
 }
 
-func gitHeadRevision() string {
+func gitHeadRevision() (string, error) {
 	cmd := exec.Command("git", "rev-parse", "HEAD")
 	out, err := cmd.Output()
 	if err != nil {
-		log.Fatal(err)
+		return "", err
 	}
-	return strings.TrimSpace(string(out))
+	return strings.TrimSpace(string(out)), nil
 }
-
-// func gitGetOutput(arg ...string) string {
-// 	cmd := exec.Command("git", arg...)
-// 	out, err := cmd.Output()
-// 	if err != nil {
-// 		log.Fatal(err)
-// 	}
-// 	return string(out)
-// }
