@@ -2,7 +2,6 @@ package main
 
 import (
 	"flag"
-	"github.com/10sr/git-exec/lib"
 )
 
 
@@ -19,5 +18,5 @@ func main(){
 	rest := flag.Args()
 	cmd := rest[0]
 	args := rest[1:]
-	lib.Main(revisionFlag, withStagedFlag, cmd, args)
+	GitExec(revisionFlag, withStagedFlag, cmd, args)
 }

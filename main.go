@@ -1,4 +1,4 @@
-package lib
+package main
 
 import (
 	"fmt"
@@ -9,7 +9,7 @@ import (
 	"syscall"
 )
 
-func Main(revision string, withStaged bool, cmd string, args []string){
+func GitExec(revision string, withStaged bool, cmd string, args []string){
 	fmt.Printf("lib.Main: revision: %s\n", revision)
 	fmt.Printf("lib.Main: withStaged: %v\n", withStaged)
 	fmt.Printf("lib.Main: args: %v\n", args)
