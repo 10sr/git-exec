@@ -28,7 +28,12 @@ func GitExec(revision string, withStaged bool, cmd string, args []string){
 	}
 	fmt.Printf("lib.Main: %s\n", gitToplevel)
 
-	err = gitCheckDiff()
+	err = gitCheckStagedDiff()
+	if err != nil {
+		fmt.Printf("lib.Main: differentials found.\n")
+	}
+
+	err = gitCheckUnstagedDiff()
 	if err != nil {
 		fmt.Printf("lib.Main: differentials found.\n")
 	}

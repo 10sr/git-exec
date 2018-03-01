@@ -23,16 +23,21 @@ func gitHeadRevision() (string, error) {
 	return strings.TrimSpace(string(out)), nil
 }
 
-func gitCheckDiff() error {
+func gitCheckStagedDiff() error {
 	var err error
-	unstaged := exec.Command("git", "diff", "--quiet")
-	_, err = unstaged.Output()
+	staged := exec.Command("git", "diff", "--cached", "--quiet")
+	_, err = staged.Output()
 	if err != nil {
 		return err
 	}
 
-	staged := exec.Command("git", "diff", "--cached", "--quiet")
-	_, err = staged.Output()
+	return nil
+}
+
+func gitCheckUnstagedDiff() error {
+	var err error
+	unstaged := exec.Command("git", "diff", "--quiet")
+	_, err = unstaged.Output()
 	if err != nil {
 		return err
 	}
