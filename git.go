@@ -23,6 +23,16 @@ func gitHeadRevision() (string, error) {
 	return strings.TrimSpace(string(out)), nil
 }
 
+func gitCheckoutTo(repository string, revision string, workingDirectory string) error {
+	cmd := exec.Command(
+		"git",
+		"--work-tree" + workingDirectory,
+		"checkout", revision,
+		"--", "."
+	)
+	return nil
+}
+
 func gitCheckStagedDiff() error {
 	var err error
 	staged := exec.Command("git", "diff", "--cached", "--quiet")
