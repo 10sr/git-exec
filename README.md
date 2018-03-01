@@ -18,7 +18,7 @@ repository (fail if you are not inside of any git repository):
 
     git exec <command> [<args>...]
 
-With `-r <rev>` option, try to checkout the revision and run command at the
+With `-r <rev>` option, try to checkout that revision and run command at the
 repository root:
 
     git exec --revision|-r <rev> <command> [<args> ...]
