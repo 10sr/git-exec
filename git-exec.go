@@ -37,10 +37,11 @@ func GitExec(revision string, withStaged bool, cmd string, args []string){
 			log.Fatal(err)
 		}
 
-		// err = gitCheckoutTo(gitToplevel, revision, workingDirectory)
-		// if err != nil {
-		// 	log.Fatal(err)
-		// }
+		fmt.Printf("lib.Main: Checking out to %s\n", workingDirectory)
+		err = gitCheckoutTo(gitToplevel, revision, workingDirectory)
+		if err != nil {
+			log.Fatal(err)
+		}
 	} else {
 		workingDirectory = gitToplevel
 	}
@@ -93,5 +94,6 @@ func generateWorkingDirectoryPath(from string) (string, error) {
 		return "", err
 	}
 	base := path.Base(from)
+
 	return path.Join(home, base), nil
 }

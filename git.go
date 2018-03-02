@@ -3,6 +3,7 @@ package main
 import (
 	"os/exec"
 	"strings"
+	"fmt"
 )
 
 func gitToplevel() (string, error) {
@@ -24,13 +25,12 @@ func gitHeadRevision() (string, error) {
 }
 
 func gitCheckoutTo(repository string, revision string, workingDirectory string) error {
-	cmd := exec.Command(
-		"git",
-		"--work-tree" + workingDirectory,
-		"checkout", revision,
-		"--", "."
-	)
-	return nil
+	args := []string {"--work-tree=" + workingDirectory, "checkout", revision, "--", "."}
+	cmd := exec.Command("git", args...)
+	cmd.Dir = repository
+	out, err := cmd.Output()
+	fmt.Printf("%s\n", out)
+	return err
 }
 
 func gitCheckStagedDiff() error {
