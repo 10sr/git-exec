@@ -8,6 +8,9 @@ import (
 	"os"
 	"path"
 	"syscall"
+	"io"
+	"crypto/sha512"
+	"encoding/hex"
 	homedir "github.com/mitchellh/go-homedir"
 )
 
@@ -100,5 +103,10 @@ func generateWorkingDirectoryPath(from string) (string, error) {
 	}
 	base := path.Base(from)
 
-	return path.Join(home, base), nil
+	sha := sha512.New()
+	io.WriteString(sha, from)
+	id := hex.EncodeToString(sha.Sum(nil))[0:6]
+
+
+	return path.Join(home, base + "." + id), nil
 }
