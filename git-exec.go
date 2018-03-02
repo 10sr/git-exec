@@ -37,6 +37,11 @@ func GitExec(revision string, withStaged bool, cmd string, args []string){
 			log.Fatal(err)
 		}
 
+		err = os.MkdirAll(workingDirectory, 0755)
+		if err != nil {
+			log.Fatal(err)
+		}
+
 		fmt.Printf("lib.Main: Checking out to %s\n", workingDirectory)
 		err = gitCheckoutTo(gitToplevel, revision, workingDirectory)
 		if err != nil {
