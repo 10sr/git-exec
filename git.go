@@ -4,6 +4,7 @@ import (
 	"os/exec"
 	"strings"
 	"fmt"
+	"os"
 )
 
 func gitToplevel() (string, error) {
@@ -25,6 +26,12 @@ func gitHeadRevision() (string, error) {
 }
 
 func gitCheckoutTo(repository string, revision string, workingDirectory string) error {
+	var err error
+	err = os.MkdirAll(workingDirectory, 0755)
+	if err != nil {
+		return err
+	}
+
 	args := []string {"--work-tree=" + workingDirectory, "checkout", revision, "--", "."}
 	cmd := exec.Command("git", args...)
 	cmd.Dir = repository
