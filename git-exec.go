@@ -40,8 +40,13 @@ func GitExec(revision string, withStaged bool, cmd string, args []string){
 			log.Fatal(err)
 		}
 
+		revision, err = gitRevParse(revision)
+		if err != nil {
+			log.Fatal(err)
+		}
+
 		fmt.Printf("lib.Main: Checking out to %s\n", workingDirectory)
-		err = gitCheckoutTo(gitToplevel, revision, workingDirectory)
+		err = gitCheckoutToByClone(gitToplevel, revision, workingDirectory)
 		if err != nil {
 			log.Fatal(err)
 		}
