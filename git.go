@@ -7,6 +7,27 @@ import (
 	"os"
 )
 
+func gitMakeCommitFromStage() (string, error) {
+	writeTree := exec.Command("git", "write-tree")
+	treeObjByte, err := writeTree.Output()
+	if err != nil {
+		return "", err
+	}
+	treeObj := strings.TrimSpace(string(treeObjByte))
+
+	head, err := gitHeadRevision()
+	if err != nil {
+		return "", err
+	}
+
+	commitTree := exec.Command("git", "commit-tree", treeObj, "-m", "Temporary commit by git-exec", "-p", head)
+	rev, err := commitTree.Output()
+	if err != nil {
+		return "", err
+	}
+	return strings.TrimSpace(string(rev)), nil
+}
+
 func gitToplevel() (string, error) {
 	cmd := exec.Command("git", "rev-parse", "--show-toplevel")
 	out, err := cmd.Output()

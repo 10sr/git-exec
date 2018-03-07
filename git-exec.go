@@ -19,6 +19,10 @@ func GitExec(revision string, withStaged bool, cmd string, args []string){
 	fmt.Printf("lib.Main: withStaged: %v\n", withStaged)
 	fmt.Printf("lib.Main: args: %v\n", args)
 
+	if revision != "" && withStaged {
+		log.Fatal("revision arg and --with-staged flags are both given at the same time")
+	}
+
 	var err error
 	var workingDirectory string
 
@@ -34,15 +38,24 @@ func GitExec(revision string, withStaged bool, cmd string, args []string){
 	}
 	fmt.Printf("lib.Main: %s\n", gitToplevel)
 
-	if revision != "" {
+	if revision != "" || withStaged {
 		workingDirectory, err = generateWorkingDirectoryPath(gitToplevel)
 		if err != nil {
 			log.Fatal(err)
 		}
 
-		revision, err = gitRevParse(revision)
-		if err != nil {
-			log.Fatal(err)
+		if revision != "" {
+			revision, err = gitRevParse(revision)
+			if err != nil {
+				log.Fatal(err)
+			}
+		} else if withStaged {
+			revision, err = gitMakeCommitFromStage()
+			if err != nil {
+				log.Fatal(err)
+			}
+		} else {
+			log.Fatal("Unreachable")
 		}
 
 		fmt.Printf("lib.Main: Checking out to %s\n", workingDirectory)
