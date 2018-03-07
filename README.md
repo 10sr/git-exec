@@ -23,10 +23,10 @@ With `-r <rev>` option, try to checkout that revision and run command.
     git exec --revision|-r <rev> <command> [<args> ...]
 
 In this case, files are checked out into a working directory first (defaults to
-`$XDG_CACHE_HOME/.git-exec/$name.$id`, where `$name` is the base
+`$HOME/.git-exec/$name.$id`, where `$name` is the base
 name of the directory and `$id` is calculated from the directory full path)
 and then the command will be invoked.
 
-Run command with staged files:
+Also, you can run command with staged files:
 
     git exec --with-staged|-s <command> [<args> ...]
