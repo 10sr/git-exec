@@ -30,3 +30,9 @@ and then the command will be invoked.
 Also, you can run command with staged files:
 
     git exec --with-staged|-s <command> [<args> ...]
+
+
+License
+-------
+
+This software is unlicensed. See [LICENSE](LICENSE) for detail.
