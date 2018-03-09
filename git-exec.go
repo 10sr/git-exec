@@ -14,6 +14,7 @@ import (
 	homedir "github.com/mitchellh/go-homedir"
 )
 
+// Execute command in git repository with specified revision
 func GitExec(revision string, withStaged bool, cmd string, args []string){
 	fmt.Printf("lib.Main: revision: %s\n", revision)
 	fmt.Printf("lib.Main: withStaged: %v\n", withStaged)
