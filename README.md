@@ -1,3 +1,7 @@
+[![Build Status](https://travis-ci.org/10sr/git-exec.svg?branch=master)](https://travis-ci.org/10sr/git-exec)
+[![Go Report Card](https://goreportcard.com/badge/github.com/10sr/git-exec)](https://goreportcard.com/report/github.com/10sr/git-exec)
+
+
 git-exec
 ========
 
