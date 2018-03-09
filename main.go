@@ -4,10 +4,9 @@ import (
 	"flag"
 )
 
-
-func main(){
+func main() {
 	var (
-		revisionFlag string
+		revisionFlag   string
 		withStagedFlag bool
 	)
 	flag.StringVar(&revisionFlag, "revision", "", "Revision id")

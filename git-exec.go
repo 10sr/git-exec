@@ -5,17 +5,17 @@ import (
 	"log"
 	"os/exec"
 	// "strings"
-	"os"
-	"path"
-	"syscall"
-	"io"
 	"crypto/sha512"
 	"encoding/hex"
 	homedir "github.com/mitchellh/go-homedir"
+	"io"
+	"os"
+	"path"
+	"syscall"
 )
 
 // Execute command in git repository with specified revision
-func GitExec(revision string, withStaged bool, cmd string, args []string){
+func GitExec(revision string, withStaged bool, cmd string, args []string) {
 	fmt.Printf("lib.Main: revision: %s\n", revision)
 	fmt.Printf("lib.Main: withStaged: %v\n", withStaged)
 	fmt.Printf("lib.Main: args: %v\n", args)
@@ -84,7 +84,6 @@ func GitExec(revision string, withStaged bool, cmd string, args []string){
 	}
 }
 
-
 func execCommand(pwd string, cmd string, args []string) error {
 	fmt.Printf("lib.Main: pwd: %v\n", pwd)
 	fmt.Printf("lib.Main: cmd: %v\n", cmd)
@@ -109,7 +108,6 @@ func execCommand(pwd string, cmd string, args []string) error {
 	return err
 }
 
-
 func generateWorkingDirectoryPath(from string) (string, error) {
 	home, err := homedir.Expand("~/.git-exec")
 	if err != nil {
@@ -121,6 +119,5 @@ func generateWorkingDirectoryPath(from string) (string, error) {
 	io.WriteString(sha, from)
 	id := hex.EncodeToString(sha.Sum(nil))[0:6]
 
-
-	return path.Join(home, base + "." + id), nil
+	return path.Join(home, base+"."+id), nil
 }

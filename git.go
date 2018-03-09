@@ -1,10 +1,10 @@
 package main
 
 import (
-	"os/exec"
-	"strings"
 	"fmt"
 	"os"
+	"os/exec"
+	"strings"
 )
 
 func gitMakeCommitFromStage() (string, error) {
@@ -107,7 +107,7 @@ func gitCheckoutTo(repository string, revision string, workingDirectory string) 
 		return err
 	}
 
-	args := []string {"--work-tree=" + workingDirectory, "checkout", revision, "--", "."}
+	args := []string{"--work-tree=" + workingDirectory, "checkout", revision, "--", "."}
 	cmd := exec.Command("git", args...)
 	cmd.Dir = repository
 	out, err := cmd.Output()

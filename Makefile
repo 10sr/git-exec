@@ -6,4 +6,4 @@ run:
 
 
 fmt:
-	gofmt -s
+	gofmt -s -w *.go
