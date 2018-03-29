@@ -14,4 +14,4 @@ install:
   - make installdeps
 
 script:
-  - go build .
+  - make build
