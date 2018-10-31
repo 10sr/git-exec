@@ -33,7 +33,6 @@ Also, you can run command with staged files:
     git exec --with-staged|-s <command> [<args> ...]
 */
 
-
 package main
 
 import (
