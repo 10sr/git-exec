@@ -37,6 +37,7 @@ Also, you can run command with staged files:
 package main
 
 import (
+	"fmt"
 	"log"
 	"os/exec"
 	// "strings"
@@ -51,9 +52,9 @@ import (
 
 // GitExec Execute command in git repository with specified revision.
 func GitExec(revision string, withStaged bool, cmd string, args []string) {
-	log.Printf("lib.Main: revision: %s\n", revision)
-	log.Printf("lib.Main: withStaged: %v\n", withStaged)
-	log.Printf("lib.Main: args: %v\n", args)
+	fmt.Fprintf(os.Stderr, "lib.Main: revision: %s\n", revision)
+	fmt.Fprintf(os.Stderr, "lib.Main: withStaged: %v\n", withStaged)
+	fmt.Fprintf(os.Stderr, "lib.Main: args: %v\n", args)
 
 	if revision != "" && withStaged {
 		log.Fatal("revision arg and --with-staged flags are both given at the same time")
@@ -66,13 +67,13 @@ func GitExec(revision string, withStaged bool, cmd string, args []string) {
 	// if err != nil {
 	// 	log.Fatal(err)
 	// }
-	// log.Printf("lib.Main: %s\n", headRevision)
+	// fmt.Fprintf(os.Stderr, "lib.Main: %s\n", headRevision)
 
 	gitToplevel, err := gitToplevel()
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Printf("lib.Main: %s\n", gitToplevel)
+	fmt.Fprintf(os.Stderr, "lib.Main: %s\n", gitToplevel)
 
 	if revision != "" || withStaged {
 		workingDirectory, err = generateWorkingDirectoryPath(gitToplevel)
@@ -94,7 +95,7 @@ func GitExec(revision string, withStaged bool, cmd string, args []string) {
 			log.Fatal("Unreachable")
 		}
 
-		log.Printf("lib.Main: Checking out to %s\n", workingDirectory)
+		fmt.Fprintf(os.Stderr, "lib.Main: Checking out to %s\n", workingDirectory)
 		err = gitCheckoutToByClone(gitToplevel, revision, workingDirectory)
 		if err != nil {
 			log.Fatal(err)
@@ -105,12 +106,12 @@ func GitExec(revision string, withStaged bool, cmd string, args []string) {
 
 	err = gitCheckStagedDiff()
 	if err != nil {
-		log.Printf("lib.Main: Staged differentials found.\n")
+		fmt.Fprintf(os.Stderr, "lib.Main: Staged differentials found.\n")
 	}
 
 	err = gitCheckUnstagedDiff()
 	if err != nil {
-		log.Printf("lib.Main: Unstaged differentials found.\n")
+		fmt.Fprintf(os.Stderr, "lib.Main: Unstaged differentials found.\n")
 	}
 
 	err = execCommand(workingDirectory, cmd, args)
@@ -120,9 +121,9 @@ func GitExec(revision string, withStaged bool, cmd string, args []string) {
 }
 
 func execCommand(pwd string, cmd string, args []string) error {
-	log.Printf("lib.Main: pwd: %v\n", pwd)
-	log.Printf("lib.Main: cmd: %v\n", cmd)
-	log.Printf("lib.Main: args: %v\n", args)
+	fmt.Fprintf(os.Stderr, "lib.Main: pwd: %v\n", pwd)
+	fmt.Fprintf(os.Stderr, "lib.Main: cmd: %v\n", cmd)
+	fmt.Fprintf(os.Stderr, "lib.Main: args: %v\n", args)
 
 	var err error
 
